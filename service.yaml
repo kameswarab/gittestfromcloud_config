@@ -1,1 +1,35 @@
--- empty file --
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: master-ui
+spec:
+  selector:
+    matchLabels:
+      run: master-ui
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: master-ui
+    spec:
+      containers:
+      - name: master-ui
+        image: somerepo/gitTestFromCloud/master-ui:1.0.0
+        ports:
+        - containerPort: null
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: master-ui
+  labels:
+    run: master-ui
+spec:
+  ports:
+  - port: null
+    protocol: TCP
+    targetPort: null
+  type: ClusterIP
+  selector:
+    run: master-ui
+---
